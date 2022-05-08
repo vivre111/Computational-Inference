@@ -1,0 +1,40 @@
+\contentsline {section}{\numberline {1}Chapter 1: Statistical Inference, a brief review}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Introduction}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Statistical paradigms}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Statistical Principle}{5}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Statistical Inference}{6}{subsection.1.4}%
+\contentsline {subsubsection}{\numberline {1.4.1}Neyman-Pearson-Wald inference}{6}{subsubsection.1.4.1}%
+\contentsline {subsubsection}{\numberline {1.4.2}Fiesherian inference}{7}{subsubsection.1.4.2}%
+\contentsline {subsubsection}{\numberline {1.4.3}Bayesian Inference}{7}{subsubsection.1.4.3}%
+\contentsline {section}{\numberline {2}monte carlo}{8}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Simple MonteCarlo}{9}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}method of composition}{10}{subsection.2.2}%
+\contentsline {section}{\numberline {3}pseudo random number generation}{11}{section.3}%
+\contentsline {subsection}{\numberline {3.1}inverse method for gnerating continous random number}{11}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}rejection-acceptance method}{11}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Importance Sampling}{12}{section.4}%
+\contentsline {section}{\numberline {5}control variate}{12}{section.5}%
+\contentsline {section}{\numberline {6}MCMC}{12}{section.6}%
+\contentsline {subsection}{\numberline {6.1}metropolis algorithum}{12}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}metropolis algorithum}{13}{subsection.6.2}%
+\contentsline {subsubsection}{\numberline {6.2.1}metropolis hastings for bayesian}{13}{subsubsection.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.2}independent metropolis hastings}{13}{subsubsection.6.2.2}%
+\contentsline {subsubsection}{\numberline {6.2.3}random walk metropolis hastings}{14}{subsubsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.3}single-component metropolis hastings}{14}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Gibbs}{14}{subsection.6.4}%
+\contentsline {subsubsection}{\numberline {6.4.1}metropolis within gibbs}{15}{subsubsection.6.4.1}%
+\contentsline {section}{\numberline {7}chapter 5}{15}{section.7}%
+\contentsline {subsection}{\numberline {7.1}direct search method}{16}{subsection.7.1}%
+\contentsline {subsubsection}{\numberline {7.1.1}goden search method}{16}{subsubsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.2}nelder mead or simplex}{16}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}mimization using derivatives}{17}{subsection.7.3}%
+\contentsline {subsubsection}{\numberline {7.3.1}bracketing method }{17}{subsubsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.4}quadratic appocimation}{17}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}linear search }{17}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}steepest descend}{17}{subsection.7.6}%
+\contentsline {subsection}{\numberline {7.7}newton raphson}{17}{subsection.7.7}%
+\contentsline {subsection}{\numberline {7.8}conjugate gradient}{17}{subsection.7.8}%
+\contentsline {section}{\numberline {8}stochastic optimazation}{17}{section.8}%
+\contentsline {subsection}{\numberline {8.1}simulated annealing}{18}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}GA genetic algorithum}{18}{subsection.8.2}%
+\contentsline {section}{\numberline {9}EM Algorithum}{18}{section.9}%

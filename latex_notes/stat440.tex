@@ -1,0 +1,902 @@
+\documentclass[10pt]{article} 
+
+\usepackage{fullpage}
+\usepackage{bookmark}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref} % for the URL
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage[most]{tcolorbox}
+\usepackage[amsmath,standard,thmmarks]{ntheorem} 
+\usepackage{physics}
+\usepackage{pst-tree} % for the trees
+\usepackage{verbatim} % for comments, for version control
+\usepackage{tabu}
+\usepackage{tikz}
+\usepackage{float}
+
+\lstnewenvironment{python}{
+\lstset{frame=tb,
+language=Python,
+aboveskip=3mm,
+belowskip=3mm,
+showstringspaces=false,
+columns=flexible,
+basicstyle={\small\ttfamily},
+numbers=none,
+numberstyle=\tiny\color{Green},
+keywordstyle=\color{Violet},
+commentstyle=\color{Gray},
+stringstyle=\color{Brown},
+breaklines=true,
+breakatwhitespace=true,
+tabsize=2}
+}
+{}
+
+\lstnewenvironment{cpp}{
+\lstset{
+backgroundcolor=\color{white!90!NavyBlue},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+basicstyle={\scriptsize\ttfamily},        % the size of the fonts that are used for the code
+breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+breaklines=true,                 % sets automatic line breaking
+captionpos=b,                    % sets the caption-position to bottom
+commentstyle=\color{Gray},    % comment style
+deletekeywords={...},            % if you want to delete keywords from the given language
+escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+% firstnumber=1000,                % start line enumeration with line 1000
+frame=single,	                   % adds a frame around the code
+keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+keywordstyle=\color{Cyan},       % keyword style
+language=c++,                 % the language of the code
+morekeywords={*,...},            % if you want to add more keywords to the set
+% numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+% numbersep=5pt,                   % how far the line-numbers are from the code
+% numberstyle=\tiny\color{Green}, % the style that is used for the line-numbers
+rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+showstringspaces=false,          % underline spaces within strings only
+showtabs=false,                  % show tabs within strings adding particular underscores
+stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+stringstyle=\color{GoldenRod},     % string literal style
+tabsize=2,	                   % sets default tabsize to 2 spaces
+title=\lstname}                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+{}
+\newcommand{\su}[2]{\sum_{#1}^{#2}}
+
+% floor, ceiling, set
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\set}{\lbrace}{\rbrace}
+\DeclarePairedDelimiter{\iprod}{\langle}{\rangle}
+
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\mean}{mean}
+
+% commonly used sets
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathbb{P}}
+
+\newcommand{\sset}{\subseteq}
+
+\theoremstyle{break}
+\theorembodyfont{\upshape}
+
+\newtheorem{thm}{Theorem}[subsection]
+\tcolorboxenvironment{thm}{
+enhanced jigsaw,
+colframe=Dandelion,
+colback=White!90!Dandelion,
+drop fuzzy shadow east,
+rightrule=2mm,
+sharp corners,
+before skip=10pt,after skip=10pt
+}
+
+\newtheorem{cor}{Corollary}[thm]
+\tcolorboxenvironment{cor}{
+boxrule=0pt,
+boxsep=0pt,
+colback={White!90!RoyalPurple},
+enhanced jigsaw,
+borderline west={2pt}{0pt}{RoyalPurple},
+sharp corners,
+before skip=10pt,
+after skip=10pt,
+breakable
+}
+
+\newtheorem{lem}[thm]{Lemma}
+\tcolorboxenvironment{lem}{
+enhanced jigsaw,
+colframe=Red,
+colback={White!95!Red},
+rightrule=2mm,
+sharp corners,
+before skip=10pt,after skip=10pt
+}
+
+\newtheorem{ex}[thm]{Example}
+\tcolorboxenvironment{ex}{% from ntheorem
+blanker,left=5mm,
+sharp corners,
+before skip=10pt,after skip=10pt,
+borderline west={2pt}{0pt}{Gray}
+}
+
+\newtheorem*{pf}{Proof}
+\tcolorboxenvironment{pf}{% from ntheorem
+breakable,blanker,left=5mm,
+sharp corners,
+before skip=10pt,after skip=10pt,
+borderline west={2pt}{0pt}{NavyBlue!80!white}
+}
+
+\newtheorem{defn}{Definition}[subsection]
+\tcolorboxenvironment{defn}{
+enhanced jigsaw,
+colframe=Cerulean,
+colback=White!90!Cerulean,
+drop fuzzy shadow east,
+rightrule=2mm,
+sharp corners,
+before skip=10pt,after skip=10pt
+}
+
+\newtheorem{prop}[thm]{Proposition}
+\tcolorboxenvironment{prop}{
+boxrule=0pt,
+boxsep=0pt,
+colback={White!90!Green},
+enhanced jigsaw,
+borderline west={2pt}{0pt}{Green},
+sharp corners,
+before skip=10pt,
+after skip=10pt,
+breakable
+}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{2pt}
+
+
+\begin{document}
+\let\ref\Cref
+
+\title{\bf{STAT440 Computational Inference}}
+\date{\today}
+\author{Austin Xia}
+
+\maketitle
+\newpage
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
+Instructor: Shojaeddin Chenouri
+
+Grading: 15\% assignments * 4 + 40\% final
+\section{Chapter 1: Statistical Inference, a brief review}
+\subsection{Introduction}
+Probability distribution of the phenomenon X can be assumed to be 
+\begin{itemize}
+    \item parametric 
+    \item nonparametric 
+\end{itemize}
+
+In parametric approach, we assume pdf of X is known but depends on unknown finite-dimensional parameter $\theta$
+$$X\sim f(x|\theta)$$
+
+In nonparametric approach, we assume functional form of pdf of X is not known. In other words,
+the family of such distribution is infinite-dimensional as one 
+needs to estimate f(x) for any x in the sample space
+
+For parametric modelling, we can evaluate the inferential tool because sample size is finite 
+
+non parameter modelling is only justified asymptotically
+
+question regarding page3
+
+main purpose of Statistical analysis is making inference about $\theta$
+i.e. estimate a function of $\theta$, test a claim about it, predict a event which base on it 
+
+\subsection{Statistical paradigms}
+Statistical inference can be classified into 3 major schools:
+Bayesian, Fisherian and Neyman-Pearson-Wald (NPW)
+
+In Bayesian statistics, we assume $\theta$ is random and has a distribution(\emph{prior distribution} $\pi(\theta)$)
+
+then use Bayes's rule to combine prior distribution with data model $f(x|\theta)$
+
+to come up with an updated distribution of $\theta$ taking into account the information contained in x about $\theta$
+
+the updated pdf is called the \emph{posterior}.
+\begin{thm}[the Bayes theorem]
+   $$g(\theta|x)=\frac{f(x|\theta)\pi(\theta)}{
+        \int_\theta f(x|\theta)\pi(\theta)d\theta
+    }$$
+\end{thm}
+
+to continue the experimentation, current posterior $g(\theta|x)$ can be treated as future prior
+
+we use it to accumulate information about $\theta$ 
+
+there is also controversy on chosing prior distribution $\pi(\theta)$ (to get information for $\theta$)
+
+Fisherian and Neyman-Pearson-Wald schools are called frequentist school,
+they are practical for solving problem but lack a unified framework
+
+Bayesians excel at combining information from different sources \emph{coherently}
+
+in comparision, a common frequentist tactic is to pull problem apart, focusing for sake of objectivity on subset of data,
+which can be analyzed optimally
+
+\subsection{Statistical Principle}
+
+\begin{thm}[estimator]
+    An estimator is a function that maps the sample space to a set of sample estimate
+\end{thm}
+
+\begin{defn}[sufficient]
+    $X\sim f(x|\theta)$, T(X) is sufficient if distribution of X given T(X) does not depend on $\theta$,
+    it means T(X) contains all information in X about $\theta$
+    $$P(\theta|t(x))=P(\theta|x)$$
+\end{defn}
+
+\begin{thm}[factorization theorem]
+    T(X) is sufficient iff density of X can be written as 
+    $$f(x|\theta) = g(T(x)|\theta)h(x)$$
+\end{thm}
+
+\begin{thm}[sufficiency Principle]
+    consider a sufficient statistics T, if two observations x, y are such that T(x)=T(y)
+    then x and y must lead to the same inference about $\theta$
+\end{thm}
+
+\begin{thm}
+    $$E(X)=E(E(X|Y))$$
+    $$Var(X)=E(Var(X|Y))+Var(E(X|Y))\geq VAR(E(X|Y))$$
+\end{thm}
+from this, we have $$E(U(X))=E(E(U(X)|T(X)))$$
+
+\begin{ex}
+    $X_1 ... X_k$ be random sample from binomial $Bin(n_i, \theta)$,
+    the joint pdf of $X=X_1 ... X_k$ is 
+    $$f(x|\theta) = \prod^k_{i=1}\left(\frac{\theta}{1-\theta}\right)^{\sum^k_{i=1}x_i}
+    (1-\theta)^{\sum^k_{i=1}n_i}$$
+    we see $g(T(x)|\theta)=f(x|\theta)$ and h(x)=1
+
+    so $T(X)=\sum^k_{i=1} X_i$ is a sufficient statistic for $\theta$ in this model
+\end{ex}
+
+likelihood Principle is a consequence of sufficiency Principle.
+
+recall $$L(\theta|x) = \prod^n_{i=1}f(x_i|\theta)$$
+
+\begin{thm}[Strong likelihood Principle]
+    the likelihood function $L(\theta|x)$ carries all information x has about $\theta$
+    if x and y are two observations from possibly different models with same parameter $\theta$,
+    and there is constant c $$L_1(\theta|x)=cL_2(\theta|y)$$
+    for every $\theta$, then they carry same information about $\theta$ and lead to identical inference
+\end{thm}
+
+\begin{thm}
+    suppose we are interested in $\nu=g(\theta)$, MLE of $\nu$ is $$g(\hat{\theta}_{MLE})$$
+\end{thm}
+
+\begin{ex}
+    $X\sim Bin(12,\theta)$ with X=9, likelihood of observing x=9 is 
+    $$L_f(\theta|9) = {12\choose 9}\theta^9(1-\theta)^3,\theta\in(0,1)$$
+\end{ex}
+this likelihood function could be derived easily from pdf $f(x|\theta)$
+
+
+
+if there is another likelihood function which is also $c\theta^9(1-\theta)^3$,
+then the two models has the same $\theta$
+
+questions to implementing likelihood methods:
+\begin{itemize}
+    \item what are the observables 
+    \item what is the parameter space
+\end{itemize}
+
+\begin{thm}[conditionality principle]
+    if 2 experiments $E_1$ and $E_2$ on parameter $\theta$ are available
+    and if one of these 2 experiments is selected with probability p.
+    the resulting inference on $\theta$ should only depend on the selected experiment
+\end{thm}
+
+\subsection{Statistical Inference}
+let $X_1 ... X_n$ be generated from distribution $F(x)$, we are interested in parameter $\theta=\theta(F)$
+
+
+the aim of statistical inference is to use observed data $x_1 ... x_n$
+to make inference about unknow value of $\theta$
+
+3 main approach:
+\begin{itemize}
+    \item Neyman-Pearson-Wald inference (pre-experimental)
+    \item Fisherian inference (mostly post-experimental)
+    \item Bayesian inference (post-experimental)
+\end{itemize}
+
+\subsubsection{Neyman-Pearson-Wald inference}
+Usually an estimating function $T=T(X,\theta)$ is constructed
+
+NPW is based on \emph{sampling distribution} of T under repeated sampling,
+procedures are made before observing data. sampling distribution may be known
+or approximated using asymptotic argument
+
+examples are
+\begin{itemize}
+    \item Unbiased estimation: An estimator U(x) is unbasied for parameter $y(\theta)$ if for all $\theta$
+    $$E_\theta(U(X))=\int U(x)f_\theta(x)dx = y(\theta)$$
+    \item Minimum Risk estimator and UMVE's
+    \item Empirical Bayes Inference 
+    \item Neyman-Pearson Hypothesis Testing
+    \item Robustness
+\end{itemize}
+
+\subsubsection{Fiesherian inference}
+a point estimate $\hat{\theta}$ of $\theta$ is the value of $\theta$ which maimizes $L(\theta|x)$
+
+this is equivalent to maxmization of loglikelihood
+$$l(\theta|x) = log(L(\theta|x))$$
+
+under some regularity conditions, for large n
+$$(\hat{\theta}-\theta)\rightarrow^DN(0,J^{-1}(\theta))$$
+
+where $J(\theta)$ is matrix $$J(\theta)=E\left(-\frac{d^2l(\theta|X)}{d\theta^2}\right)$$
+
+likelihood probability statements are based on sampling distribution of maximum likelihood estimator under repeated sampling
+
+\begin{defn}
+    let $x_1 ... x_n$ be random sample with distribution $f(x|\theta)$
+    If $\theta=(\theta_1, \theta_2)$ and we are only interested in $\theta_1$,
+    one useful method is to get profile-likelihood
+    $$L_p(\theta_1|x)=L(\theta_1, \hat{\theta_2}(\theta_1))$$
+    where $\hat{\theta_2}(\theta_1))$ maximizes likelihood for $\theta_1$
+\end{defn}
+
+\subsubsection{Bayesian Inference}
+here $\theta$ is considered to be a random variable on some space $\Theta$
+with distribution pdf $\pi(\theta)$ called \emph{prior distribution}
+
+this prior distribution represents an expression of belif about an unknown quantity before data are available
+
+the data distribution $F(x|\theta)$ is now treated as conditional distribution of X given $\theta$
+
+when data x are available and pdf is given by $f(x|\theta)$, one use Bayes therem to update their belief
+
+$$g(\theta|x) = \frac{f(x|\theta)\pi(\theta)}
+{\int f(x|\theta)\pi(\theta)d\theta} 
+\propto f(x|\theta)\pi(\theta)$$
+
+question: why Propto?
+
+$g(\theta|x)$ is called \emph{posterior distribution}
+Bayesian statistics claims that all inference should be based on \emph{posterior distribution}
+
+obviously when $\pi(\theta)$ is constant in $\theta$, Bayesian posterior and likelihood function are identical
+
+for point estimator, Bayesian statistician may either use mean or mode of posterior distribution 
+$$\hat\theta=E_\pi(\theta|x)=\int \theta g(\theta|x)d\theta$$
+
+and 
+
+$$\tilde\theta=argmax_{\theta\in\Theta}\pi(\theta|x)$$
+
+$\hat\theta$ is called Bayes estimate, $\hat\theta_B$. $\tilde \theta$ is maximum a posterior estimate$\hat\theta_MAP$
+
+for confidence interval$$P(\theta\in C|x)=\int_a^b\pi(\theta|x)d\theta = 1-\alpha$$
+
+\begin{itemize}
+    \item a prior $\pi(\theta)$ is called \emph{conjugate} if posterior 
+    $g(\theta|x)$ belong to same family of distribution as $\pi(\theta)$
+
+    For example: beta distribution is conjugate prior for $\theta$ when $X\sim Bin(n,\theta)$
+
+    in other words, prior distribution is same family as posterior distribution
+    \item a uniform prior distribution on bounded interval express an indeifference among all values of the parameter (question can there be unbounded interval)
+    \item a prior is \emph{improper} if $\sum \pi(\theta)d\theta=\infty$
+    \item for improper prior, posterior is still a probability distribution
+
+    \item Bayesian Inference of posterior is sometimes weighted sum of sample mean and prior mean 
+    
+\end{itemize}
+\section{monte carlo}
+provide solution to problems by performing statistical experiment on computer 
+
+applied to problems with probabilistic and deterministic nature.
+
+\begin{example}
+    parallel lines t unit apart, drop a needle length l,
+    probability needle cross a line is
+
+    let X be distance between midpoint of needle to nearest line, $\theta$ be angle with the line,
+    the needle crosses a line iff
+    $$X\leq\frac{l*sin(\theta)}{2}$$
+
+    $X\sim uniform(0,t/2)~~~\theta\sim uniform(0,\pi)$
+
+    $$f(x,\theta)=\frac{2}{\pi t}\text{ if } 0\leq x \leq t/2, 0\leq\theta\leq\pi$$
+
+    Therefor pr(needle cross line)$\int^\pi_0\int_0^{lsin(\theta)/2}
+    \frac{2}{\pi t}dxd\theta=\frac{2l}{\pi t}$
+
+    people used this experiment to approximated $\pi$ 
+    $$\frac{n_0}{n}\approx \rightarrow \pi\approx\frac{2ln}{tn_0}$$
+\end{example}
+
+\subsection{Simple MonteCarlo}
+we are interested in evaluating integral of a sufficiently complicated function g(x)
+$$\theta=\int_x g(x)dx$$
+
+to do it with MonteCarlo, we assume X is a rv with range $\mathbf{x}$
+and density f, then 
+$$\theta = E[\delta(X)] = \int_\mathbf{x}\delta(x)f(x)dx$$
+where $g(x)=\delta(x)f(x)$ monte carlo evalution of the integral consists of 
+
+simulating a random sample of $x_1...x_n$ from f and averaging the observed values 
+$\delta(x_1)...\delta(x_n)$
+
+question: why averaging 
+
+$$\hat\theta=\frac{\sum_{i=1}\delta(X_i)}{n}$$
+
+this is unbiased estimate of $\theta$
+
+however variance of $\hat\theta$ is complicate and depend on $\theta$
+\begin{thm}[strong law of large numbers]
+    if $X_1...X_n$ are independent copies of rv with pdf f, then for any function $\delta$
+    $$lim_{n\rightarrow\infty}\frac{1}{n}\sum_{i=1}^n\delta(X_i)=E(\delta(X))=\theta$$
+\end{thm}
+
+we try to find a useful bound for approximation error 
+$$\abs{\frac{1}{n}\sum^n_{i=1}\delta(X_i)-\theta}$$
+
+we can use CLT to find a distribution of it.
+
+\begin{thm}[CLT]
+    $X_1...X_n$ be independent sample from mean $\mu$ var $\sigma^2$
+    then $$\frac{\sum_{i=1}X_i-n\mu}{\sqrt{n\sigma^2}}$$ has a limiting distribution
+    N(0,1) as n approaches infinity
+\end{thm}
+
+therefor $$P(|\frac{1}{n}\sum^n_{i=1}\delta(X_i)-\theta|<\epsilon\sqrt{\frac{Var[\delta(X_i)]}{n}})\approx 
+\phi(\epsilon)-\phi(-\epsilon)$$
+
+we can then construct a 0.95 precent CI 
+$$\frac{1}{n}\sum\delta(X_i)\pm1.96\sqrt{(\frac{var[\delta(Xi)]}{n})}$$
+
+well this depend on value of $\theta$ as variance of $\hat\theta$ is a function of $\theta$ 
+however good news:
+
+$$\hat{Var(\hat\theta)}=\frac{1}{n}[\frac{1}{n}\sum\delta^2(x_i)-\hat{\theta^2}]$$
+
+when reporting this, we need to include size of the estimation, standard error and confidence interval 
+
+\begin{ex}
+esitmate $\pi$
+$$\pi=\int_0^1\int_0^14I\{x^2+y^2\leq 1\}dydx$$
+
+$$\delta(x,y)=4I\{x^2+y^2\leq 1\}$$
+
+and $f(x,y)=1$ if $x\in(0,1), y\in(0,1)$
+\end{ex}
+
+\begin{thm}[MonteCarlo algorithm]
+    \begin{itemize}
+        \item generate n independent $X_i Y_i$ with random number from uniform distribution 
+        \item for each pair, find sqr distance from (0,0)
+        \item count how many are less than 1 and multiply answer by 4/n
+    \end{itemize}
+
+    and we get $$\hat{pi}=\frac{4}{n}\sum_{i=1}^{n}\mathbf{I}\{X_i^2+Y_i^2\leq 1\}$$
+
+
+\end{thm}
+    note$$I\{X_i^2+Y_i^2\leq1\}\sim Bernoulli(\pi/4)$$
+    $$\sum^n_{i-1}I\{X_i^2+Y_i^2\leq1\}\sim Bin(n,\pi/4)$$
+
+\subsection{method of composition}
+$f(y|x)$
+
+we interested in obtain random sample $Y_1...Y_m$ from marginal distribution
+$$k(y)=\int_Xf(y|x)g(x)dx=E_g[f(y|X)]$$
+
+to do so we use method of composition as follows 
+\begin{itemize}
+    \item draw x* from g(x)
+    \item draw y* from $f(y|x^*)$
+\end{itemize}
+
+repeat m times we obtain $x_m, y_m$
+
+form joint pdf $h(x,y)=f(y|x)g(x)$
+\\\\\\
+similarly, $$k(y)=\int f(y|x,s,t)g(x|s,t)h(s|t)p(t)dxdsdt$$
+
+to sample from marginal probability density function k(y),
+\begin{itemize}
+    \item draw t* from p(t)
+    \item Draw s* from $h|t^*$
+    \item Draw x* from $g(x|s^* t^*)$
+    \item draw y* from $f(x^* s^* t^*)$
+\end{itemize}
+ while y* is an observation from marginal k(y)
+
+ \begin{ex}[predictive distribution]
+    $y_{obs}=(y_1...y_n)^T$ we interested in $y^f$, a future observation. 
+    suppose $\pi(\theta|y_{obs})$ is posterior distribution, then predictive distribution is 
+    $$p(y^f|y_{obs})=\int p(y^f|y_{obs},\theta)*\pi(\theta|y_{obs})d\theta$$
+ \end{ex}
+
+ \section{pseudo random number generation}
+ $x\in\{a_1...a_k...\}$ with probability $p_k$
+ partition interval (0,1] into subintervals,
+ $I_k=(F_{k-1}, F_k),F_0=0,f_k=p_1+...p_k$ 
+ 
+ each subinterval coresponds to a single value for X and after 
+ observing generated value from U(0,1), one verifies which interval U belong 
+ so $$X=a_i \text{if } U\in I_i$$
+ \subsection{inverse method for gnerating continous random number}
+
+background:$$P(F(X)\leq F(t))=P(x\leq t)=F(t)$$
+\begin{thm}
+    \begin{itemize}
+        \item 
+    if F(x) continous, U=F(X) is uniform on [0,1]
+
+    proof: F(t)=u,$$P(F(X)\leq u)=P(F(X)\leq F(t))=u$$
+        \item 
+    $F^{-1}(U)$ has distribution F(x)
+
+    proof $ u\leq F(t) \equiv F^{-1}(u) \leq t$
+        \item 
+    even if F(x) not continous, $P(F(x)\leq t)\leq t$ still hold 
+    \end{itemize}
+\end{thm}
+\begin{ex}
+    $$F(x)=1-e^{-x} \leftrightarrow F^{-1}(u)=-ln(1-u)$$
+
+    then $Y=-\lambda ln(U)$ is exponentially distributed with mean $\lambda$
+\end{ex}
+
+\subsection{rejection-acceptance method}
+
+$$e(x)=Mg(x)\geq f(x)~~~\text{e(x) is envelop function},M\geq 1$$
+
+The rejection acceptance algorithm:
+\begin{itemize}
+    \item Sample $Y\sim g$
+    \item Sample $U~\sim U(0,1)$
+    \item Reject Y if $U\geq f(Y)/e(Y)$ go to step 1
+    \item Accept if otherwise, X=Y
+\end{itemize}
+
+we will have 
+$P(X\leq x)=P(Y\leq x|X=Y)=P(Y\leq x|U\leq f(Y)/e(Y))=F(x)$
+
+Remarks:
+\begin{itemize}
+    \item acceptance probabiilty is 1/M, when M is large, inefficient 
+    \item g(x) resembles f(x) , then M small.
+    \item if g(x) shorter tail than f(x). may not exist suitable M 
+\end{itemize}
+
+\section{Importance Sampling}
+    weighted version of simple Monte Carlo 
+
+\section{control variate}
+    if we want 
+    $$\theta =E_f(\delta(X))=\int \delta(x)f(x)dx$$
+    it's easy to obtain
+    $$\theta^* =E_f(\mu(X))=\int \mu(x)f(x)dx$$
+
+    then for any constant $\alpha, \hat\theta+\alpha(\hat\theta^*-\theta^*)$ is unbiased 
+    estimator for $\theta$
+
+    to get best $\alpha$, we minimize $$Var(\hat\theta+\alpha(\hat\theta^*-\theta^*))$$
+
+    we have variance reduction over $\hat\theta_{MC}$ as 
+    $$min Var(\hat\theta_{CV})= Var(\hat\theta_{MC})[1-Corr^2(\hat\theta_{MC},
+    \hat\theta^*_{MC})]$$
+
+\section{MCMC}
+    \begin{defn}[reversibility of MC]
+        $q_{ij}=pr(Z_n=j|Z_{n-1}=i) = p_{ji}\frac{\pi_j}{\pi_i}$
+
+        if $X_n$ and $Z_n$ are from $(-\infty, \infty)$ then 
+    \end{defn}
+
+
+\subsection{metropolis algorithum}
+    \begin{itemize}
+        \item the proposal probability $q_{ij}$ are symmetric 
+        \item Hasting extended Metropolis algorithm to more general without sysmmetric requirement 
+        \item acceptance probability is $$\alpha_{ij}=min\{\frac{\pi_j}{\pi_i}, 1\}$$
+    \end{itemize}
+
+    the algorithm:
+    \begin{itemize}
+        \item set $x_{n-1}=i, i\in S$
+        \item generate j from $q_{ij}, j\in S$
+        \item set $r=\frac{\pi_j}{\pi_i}$
+        \item if $r \geq 1$ set $x_n=j$ otherwise generate $u\sim U(0,1)$
+        \item if $u<r$ set $x_n=j$ else set $x_n=x_{n-1}$
+        \item set n=n+1 back to step 1
+    \end{itemize}
+
+
+
+\subsection{metropolis algorithum}
+    \begin{itemize}
+        \item the proposal probability $q_{ij}$ are symmetric 
+        \item Hasting extended Metropolis algorithm to more general without sysmmetric requirement 
+        \item acceptance probability is $$\alpha_{ij}=min\{\frac{\pi_jq_{ji}}{\pi_iq_{ij}}\}$$
+    \end{itemize}
+
+    the algorithm:
+    \begin{itemize}
+        \item set $x_{n-1}=i, i\in S$
+        \item generate j from $q_{ij}, j\in S$
+        \item set $r=\frac{\pi_jq_{ji}}{\pi_iq_{ij}}$
+        \item if $r \geq 1$ set $x_n=j$ otherwise generate $u\sim U(0,1)$
+        \item if $u<r$ set $x_n=j$ else set $x_n=x_{n-1}$
+        \item set n=n+1
+    \end{itemize}
+
+    the detailed balance condition is satisfied 
+    $\pi_ip_{ij}=\pi_jp_{ji}$, so $\pi j$ is stationary distribution
+
+    \subsubsection{metropolis hastings for bayesian}
+        $$\pi(\theta|y)\propto f(y|\theta)\pi(\theta)$$
+        so acceptance probability is 
+        $$\alpha(\theta_n, \theta^*)=min\{\frac{\pi(\theta^*|y)q(\theta^*, \theta_n)}
+        {\pi(\theta_n|y)q(\theta_n,\theta^*)},1\}$$
+    \subsubsection{independent metropolis hastings}
+        q(x,y) depends only on y
+
+        acceptance probability is $\alpha(x,y)=min\{\frac{\pi(y)g(x)}{\pi(x)g(y)},1\}$
+    
+    \subsubsection{random walk metropolis hastings}
+        algorithm
+        \begin{itemize}
+            \item n=0, start with $x_n$
+            \item generate $\epsilon_n$ from $g()$ which is usually $N(0,\sigma^2 I)$, and $u\sim U(0,1)$
+            \item set $y=x_n+\epsilon_n$
+            \item if $u\leq \alpha(x_n,y)$ set $x_{n+1}=y$. else set $x_{n+1}=x_n$
+            \item set n=n+1, go to step 1
+            \item and we have $\{x_n ... x_N\}$
+        \end{itemize}
+
+        here $\alpha(x,y)=min\{\frac{\pi(y)}{\pi(x)},1\}$
+
+    \subsection{single-component metropolis hastings}
+        \begin{itemize}
+            \item $X=(X_1 , ... , X_d)\sim \pi(x)$
+            \item if we use metropolis-hasting, we generate y from x by q(x,y)
+            \item alternative is generate sample component-wise 
+            \item each component is a single dimension in this case $$x=(x_1 ... x_d)$$
+            \item each component is updated one by one by seperate metropolis-hasting steps 
+            \item at ith step, yi is generated from $q_i(x_i, y_i)$ which means q() changes
+            \item $\alpha_i(x_i,y_i)=min\{\frac{\pi_i(y_i)q_i(y_i,x_i)}
+            {\pi_i(x_i)q_i(x_i,y_i)},1\}$
+            \item if accepted, $x_i^{n+1}=y_i$ otherwise $x_i^{n+1}=x_i^n$
+            \item the remaining components of $x_n$ not changed in step i 
+            \item after repeating for i=1,2..d, the entire $x_n$ is updated 
+        \end{itemize}
+
+        some details:
+           $\pi_i(x_i)=\pi(x_i|x_{-i})=\pi(X)/\int \pi(X)dx_i$
+
+           $\pi(x)$ is uniquely determined by $\pi_i(x_i)$ i from 1 to d 
+        
+    \subsection{Gibbs}
+        \begin{itemize}
+            \item gibbs sampler is special kind of single component metropolis-hasting sampling 
+            \item $\alpha(x,y)=1$ 
+            \item one only consider univariate conditional distribution 
+            \item easier to simulate than joint distriubtion 
+            \item that is one simulate d random variate sequentailly from the d univate conditions 
+        \end{itemize}
+
+        the proposal distribution is 
+        $q_i(x_i, y_i)=\pi_i(y_i)$
+
+        $\pi_i(y_i)=\pi(y_i|x_{-i})$
+
+        algorithm:
+        \begin{itemize}
+            \item initailize $x^0=x^0_1 ... x^0_d$ n=0 
+            \item $$x_1^{n+1} \sim \pi(x_1|x_2^n, ... x_d^n)$$
+            $$x_2^{n+1} \sim \pi(x_2|x_1^n, ... x_d^n)$$
+            \item this create $x^{n+1}$
+            \item increment n, go to step 2
+
+        \end{itemize}
+        \subsubsection{metropolis within gibbs}
+            \begin{itemize}
+                \item 
+            in gibbs we assume we know how to draw from 
+            $\pi_i(y_i|x_{-i}), i=1...d$
+                \item if we do not know how, we use a Metropolis hasting step 
+                \item suppose (y,x) is proposal distribution for jth component 
+                \item see section 3.4.6 
+            \end{itemize}
+
+
+        \section{chapter 5}
+            \begin{defn}[global optimizer]
+                $\theta_0\in R^p$ is global minimizer of h if for all $\theta\in R^p
+                h(\theta_0 \leq h(\theta)$
+            \end{defn}
+            \begin{defn}[local optimizer]
+                $\theta_0\in R^p$ is local minimizer of h if for all $\theta\in N(\theta_0)
+                h(\theta_0)<h(\theta)$
+            \end{defn}
+
+            \begin{defn}
+                $\delta h(\theta)=(\frac{dh}{d\theta_1}... \frac{dh}{d\theta_p})$
+            \end{defn}
+
+            \begin{thm}[first order necessary condition]
+                if $\theta_0$ is local minimizer, h is continously differentiable in 
+                neibourhood of $\theta_0$ then $\delta h(\theta_0)=0$
+            \end{thm}
+
+            \begin{thm}[second order neccessary]
+                $\theta_0$ is local minimizer of h , $H_h(\theta)$ is continous,
+                then $\delta h(\theta_0)=0, H_h(\theta_0)$ is positive
+            \end{thm}
+
+            \begin{thm}[second order sufficient]
+                $H_h(\theta)$ is continous,$\delta h(\theta_0)=0, H_h(\theta_0)$ is positive definite
+                then  $\theta_0$ is local minimizer
+            \end{thm}
+
+            \begin{defn}[convex set]
+                a set C is convex if for any 2 points in C, 
+                $$\lambda \theta + (1-\lambda)\mu \in C$$
+            \end{defn}
+
+            \begin{defn}[convex function]
+                a function is convex if for all $\theta, \mu$
+                $$h(\lambda \theta + (1-\lambda)\mu) \leq \lambda h(\theta)+(1-\lambda)h(\mu)$$
+            \end{defn}
+
+            \begin{thm}
+                for a convex function, any local minimizer of h is global minimizer 
+
+                in addition if h is differentiable then any stationary point $\theta$ of h is a global minimizer
+            \end{thm}
+
+            \begin{thm}
+                let h be twice differentiable function on open convex set, if second derivative is positive semi-definite, 
+                then h() is convex, If H() is positive definite, h() is strictly convex
+            \end{thm}
+
+            \subsection{direct search method}
+                do not require explicit evaluation of any partial derivatives 
+
+                \subsubsection{goden search method}
+                to apply golden search we require h is well defined on [a,b] and unimodel 
+
+                \begin{defn}[unimodal function ]
+                    H() is unimodal on [a,b] if there is unique p s.t. 
+                    h() is decerasing on[a,p], h() is increasing on [p,b]
+                \end{defn}
+            \subsection{nelder mead or simplex}
+                \begin{defn}
+                    a simplex in p dim is a feometrical object consisting of p+1 points(or vertices)
+                    and all their interconnecting line segments, polygonal faces etc. 
+
+                    1d simplex is interval 
+                    2d is triangle 
+                    each step we reject one vertex with highest value
+                \end{defn}
+
+                algrithum:
+                \begin{itemize}
+                    \item initial triangle BGW: three initial vertices B, G, W; $h(B)\leq h(G)\leq h(w)$
+                    \item $M=\frac{B+G}{2}=(\frac{\lambda_1+\mu_1}{2}, \frac{\lambda_2+\mu_2}{2})$
+                    \item reflection using point R, by finding M=(G+B)/2, R=2M-W
+                    \item if $h(R)\leq h(W)$ we succeed, if so we extend R to E. if $h(E)\leq h(R)$ then  $E=2R-M$
+                    \item if h(R)=h(W), test another point C1, C2 
+                    \item if $h(C)\geq h(W)$ the point G W shrink toward B replace G with M, W with S 
+                \end{itemize}
+            
+            \subsection{mimization using derivatives}
+                \subsubsection{bracketing method }
+                identify 3 pionts $\theta_0, \theta_1=\theta_0+\alpha , \theta_2= \theta_0+ 2\alpha$
+                s.t. $h(\theta_0)>h(\theta_1),h(\theta_1)<h(\theta_2)$
+
+            \subsection{quadratic appocimation}
+                if we know function value at 3 points we approximate by $g(\theta)=A\theta^2+B\theta+C$
+                solve it and find $\theta_min = -B/2A$
+
+            \subsection{linear search }
+                find a direction p and decide how far to move along the direction 
+            \subsection{steepest descend}
+                evaluate gradient, compute direction, perform single parameter minimiazation, construct next point, perform test termination
+                
+            \subsection{newton raphson}
+            $$\theta_{k+1}=\theta_k-\frac{e(\theta_k)}{e'(\theta_k)}$$
+
+            algorithm:
+            \begin{itemize}
+                \item start from $\theta^{0}$
+                \item suppose after kth iteration we have $\theta^k$
+                \item compute $H_h^{-1}(\theta^k)$ and $\delta h (\theta^k)$
+                \item new update $\theta^{k+1}=\theta^k - H^{-1}\theta^k\delta h(\theta^k)$
+            \end{itemize}
+            \subsection{conjugate gradient}
+                does not require 2nd derivatives 
+
+                go in direction of the 1st derivative
+    \section{stochastic optimazation}
+        stochastic optimazation methods randomly search $\theta$ 
+
+        for example generate $\theta$ uniformly and get minimum of $h\theta$ 
+        
+        \subsection{simulated annealing}
+            used for function with multiple peaks. it will recieve a reasonable downhill move prob to explore 
+            the entire space 
+
+            as process proceed, we decrease pr of downhill, related to thermal dynamics 
+
+            if temperature decrease slowly, the cooling process is annueing
+
+            algorithm
+            \begin{itemize}
+                \item start with $\theta_0$ and an anealing schedule $T_1\geq ... T_K$
+                \item for k = 1 to K j=1 to $N_k$ process $\theta$ from $q(\theta_{j-1}, y)$
+                \item generate u, if $u<min\{\frac{\pi_k(\theta)}{\pi_k(\theta_{j-1})},1\}$ then set $\theta_j$ to be 
+                \item one of $\theta$ or $\theta_{j-1}$
+                \item set $\theta_0 = \theta_{N_k}$
+            \end{itemize}
+        \subsection{GA genetic algorithum}
+            based on principle of survial of fittest 
+
+            GA works with \emph{population} of condidate solution 
+            
+    \section{EM Algorithum}
+        $f_{com}(y_{com};\theta)=f_{obs}(y_{obs}; \theta)* f_{mis|obs}(y_{obs};\theta)$
+
+        add expectation $E_{mis|obs;\theta_0}$ to the zbove formula
+
+        $$l_{obs}(\theta;y_{obs }) = Q(\theta;\theta_0)-H(\theta;\theta_0)$$
+
+        \begin{lemma}
+            $H(\theta;\theta_0)$ is maximized with resepct to $\theta$ if $\theta= \theta_0$
+
+            for $\theta\neq\theta_0$ $H(\theta;\theta_0) < H(\theta_0;\theta_0)$
+
+            if we let $\theta_1= max_{\theta}Q(\theta;\theta_0)$
+
+        \end{lemma}
+
+        EM algorithm:
+
+        \begin{itemize}
+            \item start from $\theta_0$
+            \item in step k=0,1... compute $Q(\theta;\theta^{(k)})$
+            
+            which is $E_{mis|obs};\theta^{k} (l_{com}(\theta;Y_{com}|y_{obs}))$
+
+            \item M-step : Find $\theta^{k+1};\theta^k > Q(\theta;\theta^k)$ for all $\theta$
+
+
+            continue untill difference of $l_bos(\theta^{k+1};y_{obs}-L_obs(\theta^k;y_{obs}))$ is low
+        \end{itemize}
+
+
+\end{document}

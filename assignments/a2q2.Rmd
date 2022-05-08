@@ -1,0 +1,46 @@
+---
+title: "a2q2"
+output: pdf_document
+---
+
+(a)
+
+```{r}
+P=diag(c(0.5,0.5,0.25,0.25,0.5,0.5))
+P[1,2]=P[6,5]=0.5
+P[2,1]=P[2,3]=P[5,4]=P[5,6]= 0.25
+P[3,1]=P[3,2]=P[3,4]=P[4,6]=P[4,5]=P[4,3]=0.25
+P
+
+getrand.state=function(x){
+  ret=-1
+  r=runif(1)
+  temp=0
+  for(sta in 1:length(x)){
+    temp=temp+x[sta]
+    if (r <= temp){
+      ret = sta
+      break
+    }
+  }
+  ret
+}
+
+x=c(1,rep(0,5))
+path=rep(0,1000)
+for (i in 1:1000){
+  path[i]=getrand.state(x)
+  x= t(P) %*% x
+}
+
+plot(1:1000, path[1:1000] ,lwd=3)
+
+#relative frequency
+table(path)/1000
+# we guess stationary distribution is c(1/6,2/9,1/9,1/9,2/9,1/6)
+
+t(P)%*%c(1/6,2/9,1/9,1/9,2/9,1/6)
+
+
+
+``` 
